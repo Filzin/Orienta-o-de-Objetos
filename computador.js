@@ -22,6 +22,7 @@ class computador {
 
             this.disponibilidade = false;   
             let custoTotal = tempoHoras * this.precoPorhora;
+            lanHouse.atualizarReceita(custoTotal)
             return custoTotal;
         }
         else {
@@ -34,3 +35,41 @@ class computador {
 
 }
 
+
+class lanHouse{
+
+    static totalReceita = 0
+
+    constructor(nome) {
+        this.nome = nome
+        this.computadores = []
+        
+    }
+
+  adicionarComputador (computador) {
+            this.computadores.push(computador)
+        }
+    
+    listarComputadores(){
+        this.computadores.forEach(computador=>{
+
+            console.log(`Computadores disponiveis:${computador.disponibilidade},Preço por Hora:${computador.precoPorhora}`)
+        }
+        )
+
+    }
+     static atualizarReceita(valor) { 
+        lanHouse.totalReceita += valor
+     }
+  alugarComputador (id, tempoHoras){
+    let comp = this.computadores.find(comp => comp.id === id )
+    return comp.alugar(tempoHoras)
+  }
+
+  liberarComputador(id) {
+    let comp = this.computadores.find(comp => comp.id === id)
+    comp.liberar()
+    
+  }
+}
+    
